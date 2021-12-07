@@ -1,0 +1,155 @@
+<div class="container">
+  <div class="top-bar">
+    <!--    <p>2011 MKT 007 - Capacity building of farmer-based organizations in World Food Program</p>-->
+    <button class="cancel">
+      Cancel
+    </button>
+
+    <button class="save">
+      Save
+    </button>
+
+    <button class="save-close">
+      Save & Close
+    </button>
+  </div>
+
+  <div class="container-body">
+    <div class="sample-form">
+
+      <h3>SAMPLE</h3>
+
+      <form [formGroup]="sampleForm">
+        <div class="sample-form__project-code-title">
+          <label for="project-code"> Project Code <span>*</span> <br>
+            <input id="project-code" type="text" formControlName="projectCode" required>
+          </label>
+
+          <label for="project-title"> Project Title <span>*</span> <br>
+            <input id="project-title" type="text" formControlName="projectTitle" required>
+          </label>
+        </div>
+
+
+        <label for="project-description"> Description</label> <br>
+        <textarea id="project-description" cols="30" rows="10"></textarea>
+
+        <div class="sample-form__bottom">
+          <label for="implementation-status"> Implementation Status <span>*</span> <br>
+            <select id="implementation-status">
+              <option *ngFor="let status of implementationStatuses"> {{status.option}}</option><!--formControlName="implementationStatus"-->
+            </select>
+          </label>
+
+          <label for="planned-start-date"> Planned Start Date <span>*</span> <br>
+            <input id="planned-start-date" type="date" (change)="checkDate()" formControlName="plannedStartDate" required>
+          </label>
+
+          <label for="planned-end-date"> Planned End Date <br>
+            <input id="planned-end-date" type="date" (change)="checkDate()" formControlName="plannedEndDate">
+          </label>
+
+          <label for="duration"> Duration <br>
+            <input id="duration" #durationInput (focusin)="durationInput.type = 'Number'" formControlName="duration">
+          </label>
+        </div>
+      </form>
+    </div>
+
+    <div class="sectors-form">
+      <h3> Sectors </h3>
+      <div class="sectors-form__body">
+        <table class="sectors-table">
+          <tr>
+            <th (click)="sectorNameSorting()"> Sector Name <span *ngIf="sectorSortingType">V</span> <span *ngIf="!sectorSortingType">A</span> </th>
+            <th> % </th>
+          </tr>
+          <tbody>
+          <tr *ngFor="let item of sectorTableData">
+            <td>{{item.projectSector}}</td>
+            <td>{{item.percent}}</td>
+          </tr>
+          </tbody>
+        </table>
+
+        <form [formGroup]="sectorForm">
+          <div class="sectors-form__bottom">
+            <select formControlName="sector">
+              <option *ngFor="let sector of sectorsData"> {{sector.option}}</option>
+            </select>
+
+            <input type="number" formControlName="sectorPercent">
+
+            <button class="add-button" (click)="addSectorsTableRow()">
+              ADD
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="locations-form">
+      <h3>Project Locations</h3>
+
+      <div class="locations-form-body">
+        <table class="locations-table">
+          <tr>
+            <th (click)="countrySorting()">Country</th>
+            <th (click)="districtSorting()">District</th>
+            <th>%</th>
+          </tr>
+          <tbody>
+          <tr *ngFor="let item of locationTableData">
+            <td>{{item.country}}</td>
+            <td>{{item.district}}</td>
+            <td>{{item.percent}}</td>
+          </tr>
+          </tbody>
+        </table>
+
+        <button class="add-button" (click)="displayProjectLocationsPopup = !displayProjectLocationsPopup">
+          ADD
+        </button>
+      </div>
+
+    </div>
+
+    <div class="location-popup-wrapper" *ngIf="displayProjectLocationsPopup">
+      <div class="location-popup" >
+        <div class="location-popup-header">
+          <h3>Add Project Location</h3>
+
+          <button (click)="displayProjectLocationsPopup = !displayProjectLocationsPopup">
+            X
+          </button>
+        </div>
+
+        <form [formGroup]="locationForm">
+          <label for="country">Country <span>*</span> <br>
+            <select id="country" formControlName="country" required>
+              <option *ngFor="let country of countries">{{country.option}}</option>
+            </select>
+          </label>
+
+          <label for="district">District <span>*</span> <br>
+            <select id="district" formControlName="district" required>
+              <option *ngFor="let district of districts">{{district.option}}</option>
+            </select>
+          </label>
+
+          <label for="percent"> % <br>
+            <input id="percent" type="number" formControlName="percent">
+          </label>
+
+          <button class="add-button" (click)="addLocationTableRow()">
+            ADD
+          </button>
+        </form>
+
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
