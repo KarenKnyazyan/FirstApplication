@@ -1,11 +1,14 @@
 import {Injectable} from '@angular/core';
 import {ProjectSectorModel} from "../../models/project-sector.model";
 import {ProjectLocationModel} from "../../models/project-location.model";
+import {of} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SampleFormService {
+
+  sectorTableData$ = of([]);
 
   constructor() {
   }

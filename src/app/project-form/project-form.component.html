@@ -22,11 +22,11 @@
       <form [formGroup]="sampleForm">
         <div class="sample-form__project-code-title">
           <label for="project-code"> Project Code <span>*</span> <br>
-            <input id="project-code" type="text" formControlName="projectCode" required>
+            <input id="project-code" type="text" formControlName="projectCode">
           </label>
 
           <label for="project-title"> Project Title <span>*</span> <br>
-            <input id="project-title" type="text" formControlName="projectTitle" required>
+            <input id="project-title" type="text" formControlName="projectTitle">
           </label>
         </div>
 
@@ -36,13 +36,13 @@
 
         <div class="sample-form__bottom">
           <label for="implementation-status"> Implementation Status <span>*</span> <br>
-            <select id="implementation-status">
-              <option *ngFor="let status of implementationStatuses"> {{status.option}}</option><!--formControlName="implementationStatus"-->
+            <select id="implementation-status" formControlName="implementationStatus">
+              <option *ngFor="let status of implementationStatuses" > {{status.option}}</option>
             </select>
           </label>
 
           <label for="planned-start-date"> Planned Start Date <span>*</span> <br>
-            <input id="planned-start-date" type="date" (change)="checkDate()" formControlName="plannedStartDate" required>
+            <input id="planned-start-date" type="date" (change)="checkDate()" formControlName="plannedStartDate">
           </label>
 
           <label for="planned-end-date"> Planned End Date <br>
@@ -80,7 +80,7 @@
 
             <input type="number" formControlName="sectorPercent">
 
-            <button class="add-button" (click)="addSectorsTableRow()">
+            <button class="add-button" (click)="addSectorsTableRow()" [disabled]="sectorForm.invalid">
               ADD
             </button>
           </div>
@@ -126,13 +126,13 @@
 
         <form [formGroup]="locationForm">
           <label for="country">Country <span>*</span> <br>
-            <select id="country" formControlName="country" required>
+            <select id="country" formControlName="country">
               <option *ngFor="let country of countries">{{country.option}}</option>
             </select>
           </label>
 
           <label for="district">District <span>*</span> <br>
-            <select id="district" formControlName="district" required>
+            <select id="district" formControlName="district">
               <option *ngFor="let district of districts">{{district.option}}</option>
             </select>
           </label>
@@ -141,11 +141,11 @@
             <input id="percent" type="number" formControlName="percent">
           </label>
 
-          <button class="add-button" (click)="addLocationTableRow()">
+          <button class="add-button" (click)="addLocationTableRow()" [disabled]="locationForm.invalid">
             ADD
           </button>
         </form>
-
+        <p>Form Status : {{locationForm.status}}</p>
       </div>
     </div>
 
