@@ -37,7 +37,7 @@
         <div class="sample-form__bottom">
           <label for="implementation-status"> Implementation Status <span>*</span> <br>
             <select id="implementation-status" formControlName="implementationStatus">
-              <option *ngFor="let status of implementationStatuses" > {{status.option}}</option>
+              <option *ngFor="let status of implementationStatuses" [hidden]="status.id === 1"> {{status.option}}</option>
             </select>
           </label>
 
@@ -50,7 +50,7 @@
           </label>
 
           <label for="duration"> Duration <br>
-            <input id="duration" #durationInput (focusin)="durationInput.type = 'Number'" formControlName="duration">
+            <input id="duration" type = 'Number' formControlName="duration"> <span> days</span>
           </label>
         </div>
       </form>
@@ -61,7 +61,7 @@
       <div class="sectors-form__body">
         <table class="sectors-table">
           <tr>
-            <th (click)="sectorNameSorting()"> Sector Name <span *ngIf="sectorSortingType">V</span> <span *ngIf="!sectorSortingType">A</span> </th>
+            <th> <!--(click)="sectorNameSorting()"-->  Sector Name <span *ngIf="sectorSortingType">V</span> <span *ngIf="!sectorSortingType">A</span> </th>
             <th> % </th>
           </tr>
           <tbody>
@@ -74,17 +74,29 @@
 
         <form [formGroup]="sectorForm">
           <div class="sectors-form__bottom">
-            <select formControlName="sector">
-              <option *ngFor="let sector of sectorsData"> {{sector.option}}</option>
+            <select formControlName="sector" (change)="selectedSectorValidation()">
+              <option *ngFor="let sector of sectorsData" [hidden]="sector.id === 1"> {{sector.option}}</option>
             </select>
 
-            <input type="number" formControlName="sectorPercent">
+            <input id="sectorPercent" #secPercent type="number" formControlName="sectorPercent">
 
-            <button class="add-button" (click)="addSectorsTableRow()" [disabled]="sectorForm.invalid">
+            <button class="add-button" (click)="addSectorsTableRow()" [disabled]="sectorForm.invalid || selectedSectorValidation() || !secPercent.value">
               ADD
             </button>
           </div>
         </form>
+        <div class="sector-form-errors">
+          <div class="sector-error" *ngIf="selectedSectorValidation()">
+            Sector already selected. Please select another sector
+          </div>
+
+          <div class="percent-error" >
+            <p>
+              sector err : {{sectorForm.value['sectorPercent'].errors?.['max']}}
+            </p>
+
+          </div>
+        </div>
       </div>
     </div>
 
@@ -127,25 +139,24 @@
         <form [formGroup]="locationForm">
           <label for="country">Country <span>*</span> <br>
             <select id="country" formControlName="country">
-              <option *ngFor="let country of countries">{{country.option}}</option>
+              <option *ngFor="let country of countries" [hidden]="country.id === 1">{{country.option}}</option>
             </select>
           </label>
 
           <label for="district">District <span>*</span> <br>
             <select id="district" formControlName="district">
-              <option *ngFor="let district of districts">{{district.option}}</option>
+              <option *ngFor="let district of districts" [hidden]="district.id === 1">{{district.option}}</option>
             </select>
           </label>
 
           <label for="percent"> % <br>
-            <input id="percent" type="number" formControlName="percent">
+            <input #locationPercent id="percent" type="number" formControlName="percent">
           </label>
 
-          <button class="add-button" (click)="addLocationTableRow()" [disabled]="locationForm.invalid">
+          <button class="add-button" (click)="addLocationTableRow()" [disabled]="locationForm.invalid || !locationPercent.value">
             ADD
           </button>
         </form>
-        <p>Form Status : {{locationForm.status}}</p>
       </div>
     </div>
 

@@ -48,7 +48,7 @@
   width: 85%;
   border-radius: 3px;
   padding: 20px;
-
+  box-shadow: 3px 3px 3px #939393;
   display: flex;
   flex-direction: column;
 }
@@ -132,6 +132,19 @@ h3 {
   flex-basis: 30%;
 }
 
+.sample-form__bottom label:last-child {
+  flex-basis: 13%;
+}
+
+#duration {
+  width: 55%;
+}
+
+.sample-form__bottom label:last-child span {
+  color: gray;
+  width: auto;
+}
+
 .sectors-form {
   background-color: white;
   margin: 10px;
@@ -139,6 +152,7 @@ h3 {
   width: 85%;
   border-radius: 3px;
   padding: 20px;
+  box-shadow: 3px 3px 3px #939393;
 }
 
 .sectors-form__body {
@@ -201,9 +215,34 @@ table {
 
 .sectors-form__bottom select {
   height: 35px;
-  flex-basis: 30%;
+  flex-basis: 31%;
   margin-top: 10px;
   font-family: Roboto, monospace;
+}
+
+.sector-form-errors {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.sector-error {
+  height: 25px;
+  text-align: center;
+  width: 31%;
+  padding-top: 3px;
+  border-radius: 3px;
+  background-color: #ffa7a7;
+  color: #7c0000;
+}
+
+.percent-error {
+  height: 25px;
+  text-align: center;
+  width: 13%;
+  padding-top: 3px;
+  border-radius: 3px;
+  background-color: #ffa7a7;
+  color: #7c0000;
 }
 
 .add-button {
@@ -238,6 +277,7 @@ input::-webkit-inner-spin-button {
   width: 85%;
   border-radius: 3px;
   padding: 20px;
+  box-shadow: 3px 3px 3px #939393;
 }
 
 .locations-form-body {

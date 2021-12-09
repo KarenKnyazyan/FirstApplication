@@ -17,7 +17,7 @@ export class SampleFormService {
     let d1 = new Date(endDate).getTime()
     let d2 = new Date(startDate).getTime()
     if (d1 > d2) {
-      return ((d1 - d2) / (1000 * 3600 * 24)).toString() + ' days';
+      return ((d1 - d2) / (1000 * 3600 * 24));
     } else {
       alert("Unavailable start or/and end date")
       return ''

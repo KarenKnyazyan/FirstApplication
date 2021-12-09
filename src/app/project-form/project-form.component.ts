@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Observable, of} from "rxjs";
 /**
  * Services
  * */
@@ -30,7 +29,7 @@ export class ProjectFormComponent implements OnInit {
   countries = COUNTRIES;
   districts = DISTRICTS;
 
-  // sectors: Set<String> = new Set<String>();
+  // sectorTableData = new Set<ProjectSectorModel>();
 
   /**
    * Tables data
@@ -38,7 +37,7 @@ export class ProjectFormComponent implements OnInit {
   sectorTableData: ProjectSectorModel[] = [];
   locationTableData: ProjectLocationModel[] = [];
 
-  sectorTableData$: Observable<ProjectSectorModel[]> = of(this.sectorTableData);
+  // sectorTableData$: Observable<ProjectSectorModel[]> = of(this.sectorTableData);
   /**
    * sorting types
    */
@@ -68,7 +67,7 @@ export class ProjectFormComponent implements OnInit {
     });
 
     this.sectorForm = this.fb.group({
-      sector: [''],
+      sector: ['', Validators.required],
       sectorPercent: ['', [Validators.max(100), Validators.min(1)]]
     });
 
@@ -79,14 +78,14 @@ export class ProjectFormComponent implements OnInit {
     });
   }
 
-  sectorNameSorting() {
-    this.sampleFormService.sorting(this.sectorTableData, this.sectorSortingType);
-
-    console.log(this.sectorSortingType);
-
-    // @ts-ignore
-    this.sectorSortingType = SORTINGTYPES[this.sectorSortingType];
-  }
+  // sectorNameSorting() {
+  //   this.sampleFormService.sorting(this.sectorTableData, this.sectorSortingType);
+  //
+  //   console.log(this.sectorSortingType);
+  //
+  //   // @ts-ignore
+  //   this.sectorSortingType = SORTINGTYPES[this.sectorSortingType];
+  // }
 
   countrySorting() {
     this.sampleFormService.sorting(this.locationTableData, this.countrySortingType, 'country');
@@ -108,24 +107,20 @@ export class ProjectFormComponent implements OnInit {
   }
 
   addSectorsTableRow() {
-    if (this.sectorForm.value['sector'] !== '') {
-      if (this.sectorForm.value['sectorPercent'] !== '') {
-        this.sectorTableData.push({
-          projectSector: this.sectorForm.value['sector'],
-          percent: this.sectorForm.value['sectorPercent']
-        });
+    if (this.sectorForm.value['sectorPercent'] !== '') {
+      this.sectorTableData.push({
+        projectSector: this.sectorForm.value['sector'],
+        percent: this.sectorForm.value['sectorPercent']
+      });
 
-        // this.sectorTableData$.pipe(tap(data => data.push({
-        //   projectSector: this.sectorForm.value['sector'],
-        //   percent: this.sectorForm.value['sectorPercent']
-        // })))
+      // this.sectorTableData$.pipe(tap(data => data.push({
+      //   projectSector: this.sectorForm.value['sector'],
+      //   percent: this.sectorForm.value['sectorPercent']
+      // })))
 
-        this.sectorTableData$.subscribe({next: value => console.log(value)})
-      } else {
-        alert("Unavailable percent value")
-      }
+      // this.sectorTableData$.subscribe({next: value => console.log(value)})
     } else {
-      alert("You haven't selected sector")
+      alert("Unavailable percent value")
     }
 
     this.sectorForm.patchValue({
@@ -150,5 +145,11 @@ export class ProjectFormComponent implements OnInit {
       ['district']: '-Select-',
       ['percent']: '',
     })
+  }
+
+  selectedSectorValidation() {
+
+    console.log(this.sectorForm.value['sectorPercent'].errors?.['min'])
+    return this.sectorTableData.length === 0 ? false : this.sectorTableData.some(x => x.projectSector === this.sectorForm.value['sector'])
   }
 }
