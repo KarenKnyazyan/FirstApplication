@@ -1,14 +1,11 @@
 import {Injectable} from '@angular/core';
 import {ProjectSectorModel} from "../../models/project-sector.model";
 import {ProjectLocationModel} from "../../models/project-location.model";
-import {of} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SampleFormService {
-
-  sectorTableData$ = of([]);
 
   constructor() {
   }
@@ -43,21 +40,21 @@ export class SampleFormService {
           });
       }
     } else {
-      if (columnName === 'country') {
+      if (columnName === 'county') {
         switch (sortType) {
           case "ASC":
-            (tableData as ProjectLocationModel[]).sort((countryName1, countryName2) => {
-              return countryName1.country > countryName2.country ? 1 : -1;
+            (tableData as ProjectLocationModel[]).sort((countyName1, countyName2) => {
+              return countyName1.county > countyName2.county ? 1 : -1;
             });
             break;
           case "DESC":
-            (tableData as ProjectLocationModel[]).sort((countryName1, countryName2) => {
-              return countryName1.country > countryName2.country ? -1 : 1;
+            (tableData as ProjectLocationModel[]).sort((countyName1, countyName2) => {
+              return countyName1.county > countyName2.county ? -1 : 1;
             });
             break;
           case "NORM":
-            (tableData as ProjectLocationModel[]).sort((countryName1, countryName2) => {
-              return countryName1.country > countryName2.country ? 0 : 0;
+            (tableData as ProjectLocationModel[]).sort((countyName1, countyName2) => {
+              return countyName1.county > countyName2.county ? 0 : 0;
             });
         }
       } else {

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 /**
  * Services
  * */
@@ -12,7 +12,8 @@ import {ProjectLocationModel} from "../../models/project-location.model";
 /**
  * Input Data
  */
-import {COUNTRIES, DISTRICTS, SECTORS, SORTINGTYPES, STATUSES} from "../../assets/mock-data";
+import {COUNTIES, DISTRICTS, SECTORS, SORTINGTYPES, STATUSES} from "../../assets/mock-data";
+import {SelectModel} from "../../models/select.model";
 
 
 @Component({
@@ -26,23 +27,23 @@ export class ProjectFormComponent implements OnInit {
    */
   implementationStatuses = STATUSES;
   sectorsData = SECTORS;
-  countries = COUNTRIES;
-  districts = DISTRICTS;
-
-  // sectorTableData = new Set<ProjectSectorModel>();
+  countries = COUNTIES;
+  districts: SelectModel[] = [{id: 1, option: "-Select-"}]
 
   /**
    * Tables data
    */
   sectorTableData: ProjectSectorModel[] = [];
+  sectorsPercentsSum = 0;
   locationTableData: ProjectLocationModel[] = [];
+  locationsPercentsSum = 0;
 
   // sectorTableData$: Observable<ProjectSectorModel[]> = of(this.sectorTableData);
   /**
    * sorting types
    */
   sectorSortingType: string = SORTINGTYPES.NORM;
-  countrySortingType: string = SORTINGTYPES.NORM;
+  countySortingType: string = SORTINGTYPES.NORM;
   districtSortingType: string = SORTINGTYPES.NORM;
 
   displayProjectLocationsPopup: Boolean = false;
@@ -54,7 +55,8 @@ export class ProjectFormComponent implements OnInit {
   sectorForm: FormGroup = new FormGroup({});
   locationForm: FormGroup = new FormGroup({});
 
-  constructor(private fb: FormBuilder, private sampleFormService: SampleFormService) { }
+  constructor(private fb: FormBuilder, private sampleFormService: SampleFormService) {
+  }
 
   ngOnInit(): void {
     this.sampleForm = this.fb.group({
@@ -68,17 +70,17 @@ export class ProjectFormComponent implements OnInit {
 
     this.sectorForm = this.fb.group({
       sector: ['', Validators.required],
-      sectorPercent: ['', [Validators.max(100), Validators.min(1)]]
+      percent: ['', [Validators.max(100), Validators.min(1)]]
     });
 
     this.locationForm = this.fb.group({
-      country: ['', Validators.required],
+      county: ['', Validators.required],
       district: ['', Validators.required],
       percent: ['', [Validators.max(100), Validators.min(1)]],
     });
   }
 
-  // sectorNameSorting() {
+  //public sectorNameSorting() {
   //   this.sampleFormService.sorting(this.sectorTableData, this.sectorSortingType);
   //
   //   console.log(this.sectorSortingType);
@@ -87,69 +89,67 @@ export class ProjectFormComponent implements OnInit {
   //   this.sectorSortingType = SORTINGTYPES[this.sectorSortingType];
   // }
 
-  countrySorting() {
-    this.sampleFormService.sorting(this.locationTableData, this.countrySortingType, 'country');
+  public countySorting(): void {
+    this.sampleFormService.sorting(this.locationTableData, this.countySortingType, 'county');
     // @ts-ignore
-    this.countrySortingType = SORTINGTYPES[this.countrySortingType];
+    this.countySortingType = SORTINGTYPES[this.countySortingType];
   }
 
-  districtSorting() {
+  public districtSorting(): void {
     this.sampleFormService.sorting(this.locationTableData, this.districtSortingType, 'district');
     // @ts-ignore
     this.districtSortingType = SORTINGTYPES[this.districtSortingType];
   }
 
-  checkDate() {
+  public checkDate(): void {
     if (this.sampleForm.value['plannedEndDate'] !== '' && this.sampleForm.value['plannedStartDate'] !== '') {
       const duration = this.sampleFormService.setDuration(this.sampleForm.value['plannedStartDate'], this.sampleForm.value['plannedEndDate']);
       this.sampleForm.patchValue({['duration']: duration});
     }
   }
 
-  addSectorsTableRow() {
-    if (this.sectorForm.value['sectorPercent'] !== '') {
+  public addSectorsTableRow(): void {
       this.sectorTableData.push({
         projectSector: this.sectorForm.value['sector'],
-        percent: this.sectorForm.value['sectorPercent']
+        percent: this.sectorForm.value['percent']
       });
 
-      // this.sectorTableData$.pipe(tap(data => data.push({
-      //   projectSector: this.sectorForm.value['sector'],
-      //   percent: this.sectorForm.value['sectorPercent']
-      // })))
-
-      // this.sectorTableData$.subscribe({next: value => console.log(value)})
-    } else {
-      alert("Unavailable percent value")
-    }
+      this.sectorsPercentsSum += this.sectorForm.value['percent'];
 
     this.sectorForm.patchValue({
       ['sector']: '-Select-',
-      ['sectorPercent']: '',
+      ['percent']: '',
     })
   }
 
-  addLocationTableRow() {
-    if (this.locationForm.value['percent'] !== '') {
+  public addLocationTableRow(): void {
       this.locationTableData.push({
-        country: this.locationForm.value['country'],
+        county: this.locationForm.value['county'],
         district: this.locationForm.value['district'],
         percent: this.locationForm.value['percent']
       })
-    } else {
-      alert("Unavailable percent value")
-    }
+
+    this.locationsPercentsSum += this.locationForm.value['percent'];
 
     this.locationForm.patchValue({
-      ['country']: '-Select-',
+      ['county']: '-Select-',
       ['district']: '-Select-',
       ['percent']: '',
     })
   }
 
-  selectedSectorValidation() {
-
-    console.log(this.sectorForm.value['sectorPercent'].errors?.['min'])
+  public selectedSectorValidation(): boolean | ValidationErrors {
     return this.sectorTableData.length === 0 ? false : this.sectorTableData.some(x => x.projectSector === this.sectorForm.value['sector'])
+  }
+
+  public percentValidation(formGroup: FormGroup): boolean | ValidationErrors {
+    if (formGroup === this.locationForm){
+      return formGroup.get('percent')!.errors || (formGroup.get('percent')!.value + this.locationsPercentsSum > 100);
+    }
+    return formGroup.get('percent')!.errors || (formGroup.get('percent')!.value + this.sectorsPercentsSum > 100);
+  }
+
+  public filterDistricts(): void {
+    this.districts = DISTRICTS.filter(x => x.parent === this.locationForm.get('county')!.value)
   }
 }

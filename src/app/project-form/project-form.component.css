@@ -1,4 +1,4 @@
-.top-bar{
+.top-bar {
   height: 130px;
   width: 100%;
   position: fixed;
@@ -94,7 +94,7 @@ h3 {
 
 #project-title {
   height: 35px;
-  width:  100%;
+  width: 100%;
   margin-top: 15px;
   font-family: Roboto, monospace;
 }
@@ -145,7 +145,7 @@ h3 {
   width: auto;
 }
 
-.sectors-form {
+.sectors {
   background-color: white;
   margin: 10px;
   height: auto;
@@ -155,7 +155,7 @@ h3 {
   box-shadow: 3px 3px 3px #939393;
 }
 
-.sectors-form__body {
+.sectors-body {
   height: 90%;
   display: flex;
   flex-direction: column;
@@ -202,47 +202,55 @@ table {
   font-family: Roboto, monospace;
 }
 
-.sectors-form__bottom {
+.sectors-form {
   display: flex;
   justify-content: space-between;
   margin-top: 30px;
 }
 
-.sectors-form__bottom input {
-  height: 35px;
-  margin-top: 10px;
-}
-
-.sectors-form__bottom select {
-  height: 35px;
+.sectors-form__select {
   flex-basis: 31%;
   margin-top: 10px;
   font-family: Roboto, monospace;
 }
 
-.sector-form-errors {
-  display: flex;
-  justify-content: space-evenly;
+.sectors-form select {
+  height: 35px;
+  width: 100%;
+  font-family: Roboto, monospace;
 }
 
 .sector-error {
-  height: 25px;
+  height: auto;
   text-align: center;
-  width: 31%;
-  padding-top: 3px;
+  width: 100%;
   border-radius: 3px;
   background-color: #ffa7a7;
   color: #7c0000;
+  font-size: 14px;
 }
 
-.percent-error {
-  height: 25px;
+.sectors-form__input {
+  flex-basis: 13%;
+  font-family: Roboto, monospace;
+}
+
+.sectors-form input {
+  height: 35px;
+  margin-top: 10px;
+  width: 100%;
+  font-family: Roboto, monospace;
+}
+
+.sectorPercent-error {
+  height: auto;
   text-align: center;
-  width: 13%;
+  width: 100%;
   padding-top: 3px;
   border-radius: 3px;
   background-color: #ffa7a7;
   color: #7c0000;
+  font-size: 14px;
 }
 
 .add-button {
@@ -270,7 +278,7 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-.locations-form {
+.locations {
   background-color: white;
   margin: 10px;
   height: auto;
@@ -280,12 +288,7 @@ input::-webkit-inner-spin-button {
   box-shadow: 3px 3px 3px #939393;
 }
 
-.locations-form-body {
-
-
-}
-
-.locations-form .add-button {
+.locations .add-button {
   width: 10%;
   margin-top: 30px;
 }
@@ -349,7 +352,7 @@ input::-webkit-inner-spin-button {
 }
 
 .location-popup {
-  width: 25%;
+  width: 350px;
   height: 500px;
   padding: 25px;
   background-color: white;
@@ -384,6 +387,25 @@ input::-webkit-inner-spin-button {
 }
 
 .location-popup input {
-  width: 30%;
+  width: 85px;
   height: 35px;
+  font-family: Roboto, monospace;
 }
+
+.location-popup__input {
+  display: flex;
+  align-items: flex-end;
+  font-family: Roboto, monospace;
+  justify-content: space-between;
+}
+
+.locationPercent-error {
+  height: 35px;
+  text-align: center;
+  width: auto;
+  border-radius: 3px;
+  background-color: #ffa7a7;
+  color: #7c0000;
+  padding: 7px 3px 3px 3px;
+}
+

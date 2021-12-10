@@ -32,12 +32,14 @@
 
 
         <label for="project-description"> Description</label> <br>
-        <textarea id="project-description" cols="30" rows="10"></textarea>
+        <textarea id="project-description" cols="30" rows="10"
+                  placeholder="Describe your project in a nutshell"></textarea>
 
         <div class="sample-form__bottom">
           <label for="implementation-status"> Implementation Status <span>*</span> <br>
             <select id="implementation-status" formControlName="implementationStatus">
-              <option *ngFor="let status of implementationStatuses" [hidden]="status.id === 1"> {{status.option}}</option>
+              <option *ngFor="let status of implementationStatuses"
+                      [hidden]="status.id === 1"> {{status.option}}</option>
             </select>
           </label>
 
@@ -50,19 +52,20 @@
           </label>
 
           <label for="duration"> Duration <br>
-            <input id="duration" type = 'Number' formControlName="duration"> <span> days</span>
+            <input id="duration" type='Number' formControlName="duration"> <span> days</span>
           </label>
         </div>
       </form>
     </div>
 
-    <div class="sectors-form">
+    <div class="sectors">
       <h3> Sectors </h3>
-      <div class="sectors-form__body">
+      <div class="sectors-body">
         <table class="sectors-table">
           <tr>
-            <th> <!--(click)="sectorNameSorting()"-->  Sector Name <span *ngIf="sectorSortingType">V</span> <span *ngIf="!sectorSortingType">A</span> </th>
-            <th> % </th>
+            <th> <!--(click)="sectorNameSorting()"-->  Sector Name <span *ngIf="sectorSortingType">V</span> <span
+              *ngIf="!sectorSortingType">A</span></th>
+            <th> %</th>
           </tr>
           <tbody>
           <tr *ngFor="let item of sectorTableData">
@@ -72,47 +75,47 @@
           </tbody>
         </table>
 
-        <form [formGroup]="sectorForm">
-          <div class="sectors-form__bottom">
-            <select formControlName="sector" (change)="selectedSectorValidation()">
-              <option *ngFor="let sector of sectorsData" [hidden]="sector.id === 1"> {{sector.option}}</option>
-            </select>
+        <form [formGroup]="sectorForm" [hidden]="sectorsPercentsSum === 100 || sectorTableData.length === 4">
+          <div class="sectors-form">
+            <div class="sectors-form__select">
+              <select formControlName="sector" (select)="selectedSectorValidation()">
+                <option *ngFor="let sector of sectorsData" [hidden]="sector.id === 1"> {{sector.option}}</option>
+              </select>
+              <div class="sector-error" *ngIf="selectedSectorValidation()">
+                Sector already selected. Please select another sector
+              </div>
+            </div>
 
-            <input id="sectorPercent" #secPercent type="number" formControlName="sectorPercent">
+            <div class="sectors-form__input">
+              <input id="sectorPercent" placeholder="Sector percentage" #secPercent type="number"
+                     formControlName="percent">
+              <div class="sectorPercent-error" *ngIf="percentValidation(sectorForm)">
+                Invalid percentage
+              </div>
+            </div>
 
-            <button class="add-button" (click)="addSectorsTableRow()" [disabled]="sectorForm.invalid || selectedSectorValidation() || !secPercent.value">
+            <button class="add-button" (click)="addSectorsTableRow()"
+                    [disabled]="sectorForm.invalid || selectedSectorValidation() || !secPercent.value || percentValidation(sectorForm)">
               ADD
             </button>
           </div>
         </form>
-        <div class="sector-form-errors">
-          <div class="sector-error" *ngIf="selectedSectorValidation()">
-            Sector already selected. Please select another sector
-          </div>
-
-          <div class="percent-error" >
-            <p>
-              sector err : {{sectorForm.value['sectorPercent'].errors?.['max']}}
-            </p>
-
-          </div>
-        </div>
       </div>
     </div>
 
-    <div class="locations-form">
+    <div class="locations">
       <h3>Project Locations</h3>
 
-      <div class="locations-form-body">
+      <div class="locations-body">
         <table class="locations-table">
           <tr>
-            <th (click)="countrySorting()">Country</th>
+            <th (click)="countySorting()">County</th>
             <th (click)="districtSorting()">District</th>
             <th>%</th>
           </tr>
           <tbody>
           <tr *ngFor="let item of locationTableData">
-            <td>{{item.country}}</td>
+            <td>{{item.county}}</td>
             <td>{{item.district}}</td>
             <td>{{item.percent}}</td>
           </tr>
@@ -127,7 +130,7 @@
     </div>
 
     <div class="location-popup-wrapper" *ngIf="displayProjectLocationsPopup">
-      <div class="location-popup" >
+      <div class="location-popup">
         <div class="location-popup-header">
           <h3>Add Project Location</h3>
 
@@ -137,30 +140,37 @@
         </div>
 
         <form [formGroup]="locationForm">
-          <label for="country">Country <span>*</span> <br>
-            <select id="country" formControlName="country">
-              <option *ngFor="let country of countries" [hidden]="country.id === 1">{{country.option}}</option>
+          <label for="county">County <span>*</span> <br>
+            <select id="county" formControlName="county" (change)="filterDistricts()">
+              <option *ngFor="let county of countries" [hidden]="county.id === 1">{{county.option}}</option>
             </select>
           </label>
 
           <label for="district">District <span>*</span> <br>
             <select id="district" formControlName="district">
-              <option *ngFor="let district of districts" [hidden]="district.id === 1">{{district.option}}</option>
+              <option
+                *ngFor="let district of districts" [hidden]="district.id === 1">
+                {{district.option}}
+              </option>
             </select>
           </label>
 
-          <label for="percent"> % <br>
-            <input #locationPercent id="percent" type="number" formControlName="percent">
-          </label>
+          <div class="location-popup__input">
+            <label for="percent"> % <br>
+              <input #locationPercent id="percent" type="number" formControlName="percent">
+            </label>
+            <div class="locationPercent-error" *ngIf="percentValidation(locationForm)">
+              Invalid percentage
+            </div>
+          </div>
 
-          <button class="add-button" (click)="addLocationTableRow()" [disabled]="locationForm.invalid || !locationPercent.value">
+          <button class="add-button" (click)="addLocationTableRow()"
+                  [disabled]="locationForm.invalid || !locationPercent.value || percentValidation(locationForm)">
             ADD
           </button>
         </form>
       </div>
     </div>
-
-
   </div>
 </div>
 

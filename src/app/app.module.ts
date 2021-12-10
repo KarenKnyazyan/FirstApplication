@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 
 import { ReactiveFormsModule, FormsModule} from "@angular/forms";
-import {RouterModule} from "@angular/router";
 import { ProjectFormComponent } from './project-form/project-form.component';
 
 @NgModule({
