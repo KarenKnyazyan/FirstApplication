@@ -2,5 +2,6 @@ import {SelectModel} from "./select.model";
 
 export interface ProjectSectorModel {
   projectSector: SelectModel,
-  percent: number
+  percent: number,
+  order?: number
 }

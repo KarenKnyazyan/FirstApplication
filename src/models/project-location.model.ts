@@ -3,5 +3,7 @@ import {SelectModel} from "./select.model";
 export interface ProjectLocationModel {
   county: SelectModel,
   district: SelectModel[],
-  percent: number
+  percent: number,
+  countyOrder?: number
+  districtOrder?: number
 }

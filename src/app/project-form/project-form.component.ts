@@ -15,7 +15,6 @@ import {ProjectLocationModel} from "../../models/project-location.model";
 import {COUNTIES, DISTRICTS, SECTORS, SORTINGTYPES, STATUSES} from "../../assets/mock-data";
 import {SelectModel} from "../../models/select.model";
 
-
 @Component({
   selector: 'app-project-form',
   templateUrl: './project-form.component.html',
@@ -35,10 +34,12 @@ export class ProjectFormComponent implements OnInit {
    */
   sectorTableData: ProjectSectorModel[] = [];
   sectorsPercentsSum = 0;
+  sectorsOrder = 1;
   locationTableData: ProjectLocationModel[] = [];
   locationsPercentsSum = 0;
+  countyOrder = 1;
+  districtOrder = 1;
 
-  // sectorTableData$: Observable<ProjectSectorModel[]> = of(this.sectorTableData);
   /**
    * sorting types
    */
@@ -60,7 +61,7 @@ export class ProjectFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.sampleForm = this.fb.group({
-      projectCode: ['', Validators.required],
+      projectCode: ['', [Validators.required, Validators.minLength(6)]],
       projectTitle: ['', Validators.required],
       implementationStatus: ['', Validators.required],
       plannedStartDate: ['', Validators.required],
@@ -80,14 +81,14 @@ export class ProjectFormComponent implements OnInit {
     });
   }
 
-  //public sectorNameSorting() {
-  //   this.sampleFormService.sorting(this.sectorTableData, this.sectorSortingType);
-  //
-  //   console.log(this.sectorSortingType);
-  //
-  //   // @ts-ignore
-  //   this.sectorSortingType = SORTINGTYPES[this.sectorSortingType];
-  // }
+  public sectorNameSorting() {
+    this.sampleFormService.sorting(this.sectorTableData, this.sectorSortingType);
+
+    console.log(this.sectorSortingType);
+
+    // @ts-ignore
+    this.sectorSortingType = SORTINGTYPES[this.sectorSortingType];
+  }
 
   public countySorting(): void {
     this.sampleFormService.sorting(this.locationTableData, this.countySortingType, 'county');
@@ -109,12 +110,13 @@ export class ProjectFormComponent implements OnInit {
   }
 
   public addSectorsTableRow(): void {
-      this.sectorTableData.push({
-        projectSector: this.sectorForm.value['sector'],
-        percent: this.sectorForm.value['percent']
-      });
+    this.sectorTableData.push({
+      projectSector: this.sectorForm.value['sector'],
+      percent: this.sectorForm.value['percent'],
+      order: this.sectorsOrder++
+    });
 
-      this.sectorsPercentsSum += this.sectorForm.value['percent'];
+    this.sectorsPercentsSum += this.sectorForm.value['percent'];
 
     this.sectorForm.patchValue({
       ['sector']: '-Select-',
@@ -123,11 +125,13 @@ export class ProjectFormComponent implements OnInit {
   }
 
   public addLocationTableRow(): void {
-      this.locationTableData.push({
-        county: this.locationForm.value['county'],
-        district: this.locationForm.value['district'],
-        percent: this.locationForm.value['percent']
-      })
+    this.locationTableData.push({
+      county: this.locationForm.value['county'],
+      district: this.locationForm.value['district'],
+      percent: this.locationForm.value['percent'],
+      countyOrder: this.countyOrder++,
+      districtOrder: this.districtOrder++
+    })
 
     this.locationsPercentsSum += this.locationForm.value['percent'];
 
@@ -138,15 +142,19 @@ export class ProjectFormComponent implements OnInit {
     })
   }
 
-  public selectedSectorValidation(): boolean | ValidationErrors {
+  public sectorValidation(): boolean | ValidationErrors {
     return this.sectorTableData.length === 0 ? false : this.sectorTableData.some(x => x.projectSector === this.sectorForm.value['sector'])
   }
 
   public percentValidation(formGroup: FormGroup): boolean | ValidationErrors {
-    if (formGroup === this.locationForm){
+    if (formGroup === this.locationForm) {
       return formGroup.get('percent')!.errors || (formGroup.get('percent')!.value + this.locationsPercentsSum > 100);
     }
     return formGroup.get('percent')!.errors || (formGroup.get('percent')!.value + this.sectorsPercentsSum > 100);
+  }
+
+  public countyAndDistrictValidation(): boolean | ValidationErrors {
+    return this.locationTableData.some(x => x.county === this.locationForm.value['county'] && x.district === this.locationForm.value['district'])
   }
 
   public filterDistricts(): void {

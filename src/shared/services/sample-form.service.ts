@@ -36,7 +36,7 @@ export class SampleFormService {
           break;
         case "NORM":
           (tableData as ProjectSectorModel[]).sort((sectorName1, sectorName2) => {
-            return sectorName1.projectSector > sectorName2.projectSector ? 0 : 0;
+            return sectorName1.order! > sectorName2.order! ? 1 : -1;
           });
       }
     } else {
@@ -54,7 +54,7 @@ export class SampleFormService {
             break;
           case "NORM":
             (tableData as ProjectLocationModel[]).sort((countyName1, countyName2) => {
-              return countyName1.county > countyName2.county ? 0 : 0;
+              return countyName1.countyOrder! > countyName2.countyOrder! ? 1 : -1;
             });
         }
       } else {
@@ -71,7 +71,7 @@ export class SampleFormService {
             break;
           case "NORM":
             (tableData as ProjectLocationModel[]).sort((districtName1, districtName2) => {
-              return districtName1.district > districtName2.district ? 0 : 0;
+              return districtName1.districtOrder! > districtName2.districtOrder! ? 1 : -1;
             });
         }
       }

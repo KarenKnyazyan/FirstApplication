@@ -44,7 +44,7 @@
 .sample-form {
   background-color: white;
   margin: 10px;
-  height: 500px;
+  height: auto;
   width: 85%;
   border-radius: 3px;
   padding: 20px;
@@ -77,12 +77,12 @@ h3 {
   font-weight: lighter;
 }
 
-.sample-form__project-code-title label:first-child {
-  flex-basis: 18%;
+.project-code-container {
+  flex-basis: 20%;
 }
 
-.sample-form__project-code-title label:last-child {
-  flex-basis: 80%;
+.project-title-container {
+  flex-basis: 75%;
 }
 
 #project-code {
@@ -97,6 +97,15 @@ h3 {
   width: 100%;
   margin-top: 15px;
   font-family: Roboto, monospace;
+}
+
+.project-code-error, .project-title-error, .district-error {
+  height: auto;
+  text-align: center;
+  width: 100%;
+  border-radius: 3px;
+  background-color: #ffa7a7;
+  color: #7c0000;
 }
 
 #project-description {
@@ -179,11 +188,17 @@ table {
 .sectors-table th:first-child {
   text-align: left;
   cursor: pointer;
+  display: flex;
 }
 
 .sectors-table th:last-child {
   text-align: right;
   padding-right: 5px;
+}
+
+img {
+  flex-basis: 70px;
+  height: 18px;
 }
 
 .sectors-table tr td:first-child {
@@ -256,13 +271,15 @@ table {
 .add-button {
   height: 35px;
   color: white;
-  background-color: #6fab27;
+  background-color: #81bb00;
   border: none;
   flex-basis: 10%;
   border-radius: 3px;
   cursor: pointer;
   margin-top: 10px;
   box-shadow: 2px 2px 5px #a2a2a2;
+  font-family: Roboto, monospace;
+  font-size: 16px;
 }
 
 .add-button:disabled {
@@ -270,6 +287,10 @@ table {
   background-color: #d3d3d3;
   cursor: auto;
   box-shadow: none;
+}
+
+.add-button:enabled:hover {
+  background-color: #4e9300;
 }
 
 input::-webkit-outer-spin-button,
@@ -408,4 +429,3 @@ input::-webkit-inner-spin-button {
   color: #7c0000;
   padding: 7px 3px 3px 3px;
 }
-
