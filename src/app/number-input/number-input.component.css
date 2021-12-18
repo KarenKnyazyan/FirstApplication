@@ -1,0 +1,44 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+label {
+    font-family: Roboto, monospace;
+    font-weight: lighter;
+    color: gray;
+}
+
+#number-input {
+    width: 85px;
+    height: 35px;
+    margin-top: 10px;
+    font-family: Roboto, monospace;
+}
+
+#number-input__withLabel {
+    width: 85px;
+    height: 35px;
+    font-family: Roboto, monospace;
+}
+
+.withLabel {
+    display: flex;
+    align-items: flex-end;
+    font-family: Roboto, monospace;
+    justify-content: space-between;
+}
+
+
+.withoutLabel {
+    flex-basis: 13%;
+    font-family: Roboto, monospace;
+}
+
+#number-input__withoutLabel {
+    height: 35px;
+    margin-top: 10px;
+    width: 100%;
+    font-family: Roboto, monospace;
+}

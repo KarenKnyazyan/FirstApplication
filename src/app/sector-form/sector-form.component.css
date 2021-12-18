@@ -1,0 +1,57 @@
+.sectors-body {
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sectors-form {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.sectors-form app-combo-box {
+    flex-basis: 31%;
+    /*margin-top: 10px;*/
+    font-family: Roboto, monospace;
+}
+
+.sectors-form select {
+    height: 35px;
+    width: 100%;
+    font-family: Roboto, monospace;
+}
+
+.sector-error {
+    height: auto;
+    text-align: center;
+    width: 100%;
+    border-radius: 3px;
+    background-color: #ffa7a7;
+    color: #7c0000;
+    font-size: 14px;
+}
+
+.sectors-form app-number-input {
+    flex-basis: 13%;
+    font-family: Roboto, monospace;
+}
+
+.sectors-form input {
+    height: 35px;
+    margin-top: 10px;
+    width: 100%;
+    font-family: Roboto, monospace;
+}
+
+.sectorPercent-error {
+    height: auto;
+    text-align: center;
+    width: 100%;
+    padding-top: 3px;
+    border-radius: 3px;
+    background-color: #ffa7a7;
+    color: #7c0000;
+    font-size: 14px;
+}

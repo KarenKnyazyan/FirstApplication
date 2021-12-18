@@ -1,0 +1,25 @@
+<div class="sectors">
+    <h3> Sectors </h3>
+    <div class="sectors-body">
+        <app-sector-table [tableHeader]="['Sector Name','%']"
+                          [tableData]="sectorTable.getData()"></app-sector-table>
+
+        <div class="sectors-form">
+
+            <app-combo-box [dropdownData]="sectorsData" [tableData]="sectorTable"
+                           [errorMessage]="'Sector already selected. Please select another sector'"
+                           (selectedValue)="sectorPercentData.currentSector = $event[0]" >
+            </app-combo-box>
+
+            <app-number-input [errorMessage]="'Invalid percentage'" [tableData]="sectorTable" [withoutLabel]="true"
+                              (percent)=" getChildData($event)">
+
+            </app-number-input>
+
+            <button class="add-button" (click)="addSectorsTableRow()"
+                    [disabled]=" sectorValidation() || percentIsValid">
+                ADD
+            </button>
+        </div>
+    </div>
+</div>

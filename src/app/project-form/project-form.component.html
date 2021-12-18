@@ -1,196 +1,23 @@
 <div class="container">
-  <div class="top-bar">
-    <button class="cancel">
-      Cancel
-    </button>
-
-    <button class="save">
-      Save
-    </button>
-
-    <button class="save-close">
-      Save & Close
-    </button>
-  </div>
-
-  <div class="container-body">
-    <div class="sample-form">
-
-      <h3>SAMPLE</h3>
-
-      <form [formGroup]="sampleForm">
-        <div class="sample-form__project-code-title">
-          <div class="project-code-container">
-            <label for="project-code"> Project Code <span>*</span> <br>
-              <input id="project-code" type="text" formControlName="projectCode">
-              <div
-                *ngIf="(sampleForm.get('projectCode')?.dirty || sampleForm.get('projectCode')?.touched) && sampleForm.get('projectCode')?.errors"
-                class="project-code-error">
-                Project code must be at least 6 characters long.
-              </div>
-            </label>
-          </div>
-
-          <div class="project-title-container">
-            <label for="project-title"> Project Title <span>*</span> <br>
-              <input id="project-title" type="text" formControlName="projectTitle">
-            </label>
-            <!--            <div *ngIf="sampleForm.get('projectTitle')?.errors" class="project-title-error">-->
-            <!--              Invalid Project Title.-->
-            <!--            </div>-->
-          </div>
-        </div>
-
-        <label for="project-description"> Description</label> <br>
-        <textarea id="project-description" cols="30" rows="10"
-                  placeholder="Describe your project in a nutshell"></textarea>
-
-        <div class="sample-form__bottom">
-          <label for="implementation-status"> Implementation Status <span>*</span> <br>
-            <select id="implementation-status" formControlName="implementationStatus">
-              <option *ngFor="let status of implementationStatuses"
-                      [hidden]="status.id === 1"> {{status.option}}</option>
-            </select>
-          </label>
-
-          <label for="planned-start-date"> Planned Start Date <span>*</span> <br>
-            <input id="planned-start-date" type="date" (change)="checkDate()" formControlName="plannedStartDate">
-          </label>
-
-          <label for="planned-end-date"> Planned End Date <br>
-            <input id="planned-end-date" type="date" (change)="checkDate()" formControlName="plannedEndDate">
-          </label>
-
-          <label for="duration"> Duration <br>
-            <input id="duration" type='Number' formControlName="duration"> <span> days</span>
-          </label>
-        </div>
-      </form>
-    </div>
-
-    <div class="sectors">
-      <h3> Sectors </h3>
-      <div class="sectors-body">
-        <table class="sectors-table">
-          <tr>
-            <th (click)="sectorNameSorting()"> Sector Name
-              <img *ngIf="sectorSortingType === 'DESC'" class="downArrow" src="assets/down.svg" alt="">
-              <img *ngIf="sectorSortingType === 'NORM'" class="upArrow" src="assets/up.svg" alt="">
-            </th>
-            <th> %</th>
-          </tr>
-          <tbody>
-          <tr *ngFor="let item of sectorTableData">
-            <td>{{item.projectSector}}</td>
-            <td>{{item.percent}}</td>
-          </tr>
-          </tbody>
-        </table>
-
-        <form [formGroup]="sectorForm" [hidden]="sectorsPercentsSum === 100 || sectorTableData.length === 4">
-          <div class="sectors-form">
-            <div class="sectors-form__select">
-              <select #selectedSector formControlName="sector" (select)="sectorValidation()">
-                <option *ngFor="let sector of sectorsData" [hidden]="sector.id === 1"> {{sector.option}}</option>
-              </select>
-              <div class="sector-error" *ngIf="sectorValidation()">
-                Sector already selected. Please select another sector
-              </div>
-            </div>
-
-            <div class="sectors-form__input">
-              <input id="sectorPercent" placeholder="Sector percentage" #secPercent type="number"
-                     formControlName="percent">
-              <div class="sectorPercent-error" *ngIf="percentValidation(sectorForm)">
-                Invalid percentage
-              </div>
-            </div>
-
-            <button class="add-button" (click)="addSectorsTableRow()"
-                    [disabled]=" selectedSector.value === '-Select-' || sectorForm.invalid || sectorValidation() || !secPercent.value || percentValidation(sectorForm)">
-              ADD
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <div class="locations">
-      <h3>Project Locations</h3>
-      <div class="locations-body">
-        <table class="locations-table">
-          <tr>
-            <th (click)="countySorting()">Count
-              <img *ngIf="countySortingType === 'DESC'" class="downArrow" src="assets/down.svg" alt="">
-              <img *ngIf="countySortingType === 'NORM'" class="upArrow" src="assets/up.svg" alt="">
-            </th>
-            <th (click)="districtSorting()">District
-              <img *ngIf="districtSortingType === 'DESC'" class="downArrow" src="assets/down.svg" alt="">
-              <img *ngIf="districtSortingType === 'NORM'" class="upArrow" src="assets/up.svg" alt="">
-            </th>
-            <th>%</th>
-          </tr>
-          <tbody>
-          <tr *ngFor="let item of locationTableData">
-            <td>{{item.county}}</td>
-            <td>{{item.district}}</td>
-            <td>{{item.percent}}</td>
-          </tr>
-          </tbody>
-        </table>
-
-        <button class="add-button" (click)="displayProjectLocationsPopup = !displayProjectLocationsPopup">
-          ADD
+    <div class="top-bar">
+        <button class="cancel">
+            Cancel
         </button>
-      </div>
+
+        <button class="save">
+            Save
+        </button>
+
+        <button class="save-close">
+            Save & Close
+        </button>
     </div>
 
-    <div class="location-popup-wrapper" *ngIf="displayProjectLocationsPopup && locationsPercentsSum !== 100">
-      <div class="location-popup">
-        <div class="location-popup-header">
-          <h3>Add Project Location</h3>
+    <div class="container-body">
+        <app-sample-form></app-sample-form>
 
-          <button (click)="displayProjectLocationsPopup = !displayProjectLocationsPopup">
-            X
-          </button>
-        </div>
+        <app-sector-form></app-sector-form>
 
-        <form [formGroup]="locationForm">
-          <label for="county">County <span>*</span> <br>
-            <select #selectedCounty id="county" formControlName="county" (change)="filterDistricts()">
-              <option *ngFor="let county of countries" [hidden]="county.id === 1">{{county.option}}</option>
-            </select>
-          </label>
-
-          <div class="district-container">
-            <label for="district">District <span>*</span> <br>
-              <select #selectedDistrict id="district" formControlName="district">
-                <option
-                  *ngFor="let district of districts" [hidden]="district.id === 1">
-                  {{district.option}}
-                </option>
-              </select>
-            </label>
-            <div class="district-error" *ngIf="countyAndDistrictValidation()">
-              County and District selected. Please select another District
-            </div>
-          </div>
-
-          <div class="location-popup__input">
-            <label for="percent"> % <br>
-              <input #locationPercent id="percent" type="number" formControlName="percent">
-            </label>
-            <div class="locationPercent-error" *ngIf="percentValidation(locationForm)">
-              Invalid percentage
-            </div>
-          </div>
-
-          <button class="add-button" (click)="addLocationTableRow()"
-                  [disabled]=" selectedCounty.value === '-Select-' || selectedDistrict.value === '-Select-' || locationForm.invalid || !locationPercent.value || percentValidation(locationForm) || countyAndDistrictValidation()">
-            ADD
-          </button>
-        </form>
-      </div>
+        <app-location-form></app-location-form>
     </div>
-  </div>
 </div>

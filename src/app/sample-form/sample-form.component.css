@@ -1,0 +1,42 @@
+.sample-form__project-code-title {
+    margin-top: 45px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: row;
+    flex-basis: 100%;
+    justify-content: space-between;
+}
+
+.sample-form__project-code-title app-text-input:first-child {
+    flex-basis: 20%;
+}
+
+.sample-form__project-code-title app-text-input:nth-child(2) {
+    flex-basis: 75%;
+}
+
+.sample-form__bottom {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sample-form__bottom app-combo-box {
+    flex-basis: 30%;
+}
+
+.sample-form__bottom app-duration {
+    flex-basis: 60%;
+}
+
+.sample-form__bottom label:last-child {
+    flex-basis: 13%;
+}
+
+#duration {
+    width: 55%;
+}
+
+.sample-form__bottom label:last-child span {
+    color: gray;
+    width: auto;
+}

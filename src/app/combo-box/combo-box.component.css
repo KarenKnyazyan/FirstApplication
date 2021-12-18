@@ -1,0 +1,16 @@
+#combo-box {
+    height: 35px;
+    width: 100%;
+    margin-top: 10px;
+    font-family: Roboto, monospace;
+}
+
+label {
+    color: gray;
+    font-family: Roboto, monospace;
+    font-size: 13px;
+}
+
+span {
+    color: red;
+}

@@ -1,0 +1,43 @@
+<div class="location-popup">
+    <div class="location-popup-header">
+        <h3>Add Project Location</h3>
+
+        <button (click)="closePopup.emit(false)">
+            X
+        </button>
+    </div>
+
+    <form [formGroup]="locationForm">
+        <label for="county">County <span>*</span> <br>
+            <select #selectedCounty id="county" formControlName="county" (change)="filterDistricts()">
+                <option *ngFor="let county of countries"
+                        [hidden]="county.id === 1">{{county.value}}</option>
+            </select>
+        </label>
+
+        <div class="district-container">
+            <label for="district">District <span>*</span> <br>
+                <select #selectedDistrict id="district" formControlName="district">
+                    <option
+                            *ngFor="let district of districts" [hidden]="district.id === 1">
+                        {{district.value}}
+                    </option>
+                </select>
+            </label>
+            <div class="district-error" *ngIf="countyAndDistrictValidation()">
+                County and District selected. Please select another District
+            </div>
+        </div>
+
+        <div class="location-popup__input">
+
+            <app-number-input [label]="'%'" [errorMessage]="'Invalid percentage'"> </app-number-input>
+
+        </div>
+
+        <button class="add-button" (click)="addLocationTableRow()"
+                [disabled]=" selectedCounty.value === '-Select-' || selectedDistrict.value === '-Select-' || locationForm.invalid || percentValidation(locationForm) || countyAndDistrictValidation()">
+            ADD
+        </button>
+    </form>
+</div>

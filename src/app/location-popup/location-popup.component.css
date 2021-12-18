@@ -1,0 +1,74 @@
+span {
+    color: red;
+}
+
+.location-popup-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.location-popup-header button {
+    border: none;
+    background-color: white;
+    color: gray;
+    cursor: pointer;
+}
+
+.location-popup {
+    width: 350px;
+    height: 500px;
+    padding: 25px;
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 3px;
+}
+
+.location-popup form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.location-popup select {
+    width: 100%;
+    height: 35px;
+    font-family: Roboto, monospace;
+    margin-top: 10px;
+}
+
+.location-popup label {
+    font-family: Roboto, monospace;
+    font-weight: lighter;
+    color: gray;
+}
+
+.location-popup input {
+    width: 85px;
+    height: 35px;
+    font-family: Roboto, monospace;
+}
+
+.location-popup__input {
+    display: flex;
+    align-items: flex-end;
+    font-family: Roboto, monospace;
+    justify-content: space-between;
+}
+
+.locationPercent-error {
+    height: 35px;
+    text-align: center;
+    width: auto;
+    border-radius: 3px;
+    background-color: #ffa7a7;
+    color: #7c0000;
+    padding: 7px 3px 3px 3px;
+}

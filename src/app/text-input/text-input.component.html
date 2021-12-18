@@ -1,0 +1,7 @@
+<label *ngIf="!displayDescription" for="text-input"> {{label}} <span>*</span> <br>
+    <input id="text-input" type="text">
+</label>
+
+<label *ngIf="displayDescription" for="textarea"> {{label}} <br>
+    <textarea id="textarea" cols="30" rows="10" placeholder="Describe your project in a nutshell"></textarea>
+</label>

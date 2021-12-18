@@ -10,6 +10,6 @@ export interface ProjectFormModel {
   plannedStartDate: Date,
   plannedEndDate: Date,
   projectDuration: number
-  sectorInfo: ProjectSectorModel,
-  locationInfo: ProjectLocationModel
+  sectorInfo: ProjectSectorModel[],
+  locationInfo: ProjectLocationModel[]
 }

@@ -1,0 +1,13 @@
+<h3>Project Locations</h3>
+<div class="locations-body">
+    <app-location-table [tableHeader]="['County', 'District', '%']" [tableData]="locationTable.getData()">
+    </app-location-table>
+
+    <button class="add-button" (click)="displayProjectLocationsPopup = !displayProjectLocationsPopup">
+        ADD
+    </button>
+</div>
+
+<app-location-popup *ngIf="displayProjectLocationsPopup && locationTable.getPercentSum() !== 100"
+                    (closePopup)="displayProjectLocationsPopup = $event">
+</app-location-popup>

@@ -1,5 +1,5 @@
 export interface SelectModel {
   id: number,
-  option: string,
+  value: string,
   parent?: string
 }

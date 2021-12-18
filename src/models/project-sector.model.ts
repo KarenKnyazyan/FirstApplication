@@ -1,7 +1,6 @@
-import {SelectModel} from "./select.model";
-
 export interface ProjectSectorModel {
-  projectSector: SelectModel,
+  projectSector: string,
   percent: number,
-  order?: number
+  id?: number
+  //projectId
 }
