@@ -1,14 +1,14 @@
 <table class="table">
-    <tr>
-        <th *ngFor="let th of tableHeader"> {{th}}
-            <!--            <img *ngIf="countySortingType === 'DESC'" class="downArrow" src="assets/down.svg" alt="">-->
-            <!--            <img *ngIf="countySortingType === 'NORM'" class="upArrow" src="assets/up.svg" alt="">-->
-        </th>
-    </tr>
-    <tbody>
-    <tr *ngFor="let item of tableData">
-        <td>{{item.projectSector}}</td>
-        <td>{{item.percent}}</td>
-    </tr>
-    </tbody>
+  <tr>
+    <th *ngFor="let th of tableHeader" (click)="tableSorting()"> {{th}}
+      <img *ngIf="sortingType === 'DESC'" class="downArrow" src="assets/down.svg" alt="">
+      <img *ngIf="sortingType === 'NORM'" class="upArrow" src="assets/up.svg" alt="">
+    </th>
+  </tr>
+  <tbody>
+  <tr *ngFor="let item of tableData.getData()">
+    <td>{{item.projectSector}}</td>
+    <td>{{item.percent}}</td>
+  </tr>
+  </tbody>
 </table>

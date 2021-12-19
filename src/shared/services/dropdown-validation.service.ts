@@ -8,13 +8,13 @@ export class DropdownValidationService {
 
   constructor() { }
 
-  public dropdownValidation(value: string, tableData: TableData<any>): boolean {
+  public dropdownValidation(value_1: string, tableData: TableData<any>, value_2?: string): boolean {
     if (tableData.getData().length === 0) {
       return true;
     }
-    if (tableData.getData()[0].parent === undefined) {
-      return !tableData.getData().some(x => x.projectSector.value === value);
+    if (tableData.getData()[0].county === undefined) {
+      return !tableData.getData().some(x => x.projectSector === value_1);
     }
-    return !tableData.getData().some(x => x.county.value === value && x.district.some((y: { value: string; }) => y.value === value));
+    return !tableData.getData().some(x => x.county === value_2 && x.district === value_1);
   }
 }

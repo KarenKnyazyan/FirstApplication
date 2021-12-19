@@ -3,6 +3,10 @@ img {
     height: 18px;
 }
 
+th:last-child img {
+  display: none;
+}
+
 table {
     border-collapse: collapse;
     width: 100%;

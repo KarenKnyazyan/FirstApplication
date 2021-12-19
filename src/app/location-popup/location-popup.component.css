@@ -48,13 +48,3 @@ span {
     height: 35px;
     font-family: Roboto, monospace;
 }
-
-app-error {
-    height: 35px;
-    text-align: center;
-    width: auto;
-    border-radius: 3px;
-    background-color: #ffa7a7;
-    color: #7c0000;
-    padding: 7px 3px 3px 3px;
-}

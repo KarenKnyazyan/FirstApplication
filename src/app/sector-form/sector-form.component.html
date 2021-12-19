@@ -1,25 +1,25 @@
 <div class="sectors">
-    <h3> Sectors </h3>
-    <div class="sectors-body">
-        <app-sector-table [tableHeader]="['Sector Name','%']"
-                          [tableData]="sectorTable.getData()"></app-sector-table>
+  <h3> Sectors </h3>
+  <div class="sectors-body">
+    <app-sector-table [tableHeader]="['Sector Name','%']"
+                      [tableData]="sectorTable"></app-sector-table>
 
-        <div class="sectors-form">
+    <div class="sectors-form">
 
-            <app-combo-box [dropdownData]="sectorsData" [tableData]="sectorTable"
-                           [errorMessage]="'Sector already selected. Please select another sector'"
-                           (selectedValue)="getSectorValue($event)" >
-            </app-combo-box>
+      <app-combo-box [dropdownData]="sectorsData" [tableData]="sectorTable"
+                     [errorMessage]="'Sector already selected. Please select another sector'"
+                     (selectedValue)="getSectorValue($event)">
+      </app-combo-box>
 
-            <app-number-input [errorMessage]="'Invalid percentage'" [tableData]="sectorTable" [withoutLabel]="true"
-                              (percent)=" getPercentValue($event)">
+      <app-number-input [errorMessage]="'Invalid percentage'" [tableData]="sectorTable" [withoutLabel]="true"
+                        (percent)=" getPercentValue($event)">
 
-            </app-number-input>
+      </app-number-input>
 
-            <button class="add-button" (click)="addSectorsTableRow()"
-                    [disabled]="!percentIsValid || !sectorIsValid">
-                ADD
-            </button>
-        </div>
+      <button class="add-button" (click)="addSectorsTableRow()"
+              [disabled]="!percentIsValid || !sectorIsValid || sectorTable.getData().length === 4 || sectorTable.getPercentSum() === 100">
+        ADD
+      </button>
     </div>
+  </div>
 </div>

@@ -13,7 +13,7 @@ export class SectorFormComponent {
   public sectorsData = SECTORS;
   public sectorTable: TableData<ProjectSectorModel> = new TableData<ProjectSectorModel>();
   public sectorPercentData = {currentSector: '', currentPercent: 0}
-  public sectorsOrder = 1;
+  public rowId = 1;
 
   public percentIsValid = false;
   public sectorIsValid = false;
@@ -24,7 +24,7 @@ export class SectorFormComponent {
     this.sectorTable.add({
       projectSector: this.sectorPercentData.currentSector,
       percent: this.sectorPercentData.currentPercent,
-      id: this.sectorsOrder++
+      id: this.rowId++
     }, this.sectorPercentData.currentPercent);
   }
 
