@@ -1,7 +1,11 @@
 <div>
-    <app-date-picker [label]="'Planned Start Date'"> </app-date-picker>
-    <app-date-picker [label]="'Planned End Date'"> </app-date-picker>
-    <app-number-input [label]="'Duration'"> </app-number-input>
+  <app-date-picker [value]="startDate | date: 'yyyy-MM-dd'" (selectedDate)="setStartDate($event)"
+                   [label]="'Planned Start Date'" [displayError]="displayStartDateError" [isSelected]="startDateIsValid"
+                   [errorMessage]="'Start date must be before end date'"></app-date-picker>
+  <app-date-picker [value]="endDate | date: 'yyyy-MM-dd'" (selectedDate)="setEndDate($event)"
+                   [label]="'Planned End Date'" [displayError]="displayEndDateError" [isSelected]="true"
+                   [errorMessage]="'End date must be after start date'"></app-date-picker>
+  <app-number-input [value]="duration" [label]="'Duration'"> <span> days</span> </app-number-input>
 </div>
 
 

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {COUNTIES} from "../../assets/mock-data";
-import {FormBuilder,FormGroup, ValidationErrors, Validators} from "@angular/forms";
+import {COUNTIES, DISTRICTS} from "../../assets/mock-data";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {TableData} from "../../models/table-data.model";
 import {ProjectLocationModel} from "../../models/project-location.model";
 
@@ -11,18 +11,24 @@ import {ProjectLocationModel} from "../../models/project-location.model";
 })
 export class LocationPopupComponent implements OnInit {
 
-  countries = COUNTIES;
-  districts = [{id: 1, value: "-Select-"}]
+  public counties = COUNTIES;
+  public districts = [{id: 1, value: "-Select-"}];
+  public countyDistrictPercentData = {county: '', district: '', percent: 0};
 
-  locationTable: TableData<ProjectLocationModel> = new TableData<ProjectLocationModel>()
-  countyOrder = 1;
-  districtOrder = 1;
+  @Output() public nextTableRow = new EventEmitter<{county: string, district: string, percent: number}>();
 
-  displayProjectLocationsPopup: Boolean = false;
+  public locationTable: TableData<ProjectLocationModel> = new TableData<ProjectLocationModel>()
+  public countyOrder = 1;
+  public districtOrder = 1;
+
+  public isValidCountyAndDistrict = false;
+  public isValidPercent = false;
+  public displayProjectLocationsPopup: Boolean = false;
 
   locationForm: FormGroup = new FormGroup({});
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder) {
+  }
 
   ngOnInit(): void {
     this.locationForm = this.fb.group({
@@ -34,33 +40,22 @@ export class LocationPopupComponent implements OnInit {
 
   @Output() public closePopup = new EventEmitter<boolean>()
 
-
-
   public addLocationTableRow(): void {
-    this.locationTable.add({
-      county: this.locationForm.value['county'],
-      district: this.locationForm.value['district'],
-      percent: this.locationForm.value['percent'],
-      countyOrder: this.countyOrder++,
-      districtOrder: this.districtOrder++
-    }, this.locationForm.value['percent'])
-
-    this.locationForm.patchValue({
-      ['county']: '-Select-',
-      ['district']: '-Select-',
-      ['percent']: '',
-    })
+    this.nextTableRow.emit(this.countyDistrictPercentData);
   }
 
-  public percentValidation(formGroup: FormGroup): boolean | ValidationErrors {
-      return formGroup.get('percent')!.errors || (formGroup.get('percent')!.value + this.locationTable.getPercentSum() > 100);
+  public setDistrict(event: [string, boolean]): void {
+    this.countyDistrictPercentData.district = event[0];
+    this.isValidCountyAndDistrict = event[1];
   }
 
-  public countyAndDistrictValidation(): boolean | ValidationErrors {
-    return this.locationTable.getData().some(x => x.county === this.locationForm.get('county')!.value && x.district === this.locationForm.get('district')!.value)
+  public setPercent(event: [number, boolean]) {
+    this.countyDistrictPercentData.percent = event[0];
+    this.isValidPercent = event[1];
   }
 
-  public filterDistricts(): void {
-    // this.districts = DISTRICTS.filter(x => x.parent === this.locationForm.get('county')!.value)
+  public filterDistricts(county: string): void {
+    this.countyDistrictPercentData.county = county;
+    this.districts = DISTRICTS.filter(x => x.parent === county)
   }
 }

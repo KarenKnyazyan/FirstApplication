@@ -1,4 +1,10 @@
 div {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
+
+app-date-picker {
+  flex-basis: 25%;
+}
+
+

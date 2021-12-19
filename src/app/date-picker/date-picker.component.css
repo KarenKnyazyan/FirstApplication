@@ -1,14 +1,19 @@
 #date-picker {
-    height: 35px;
-    margin-top: 10px;
+  height: 35px;
+  margin-top: 10px;
 }
 
 label {
-    color: gray;
-    font-family: Roboto, monospace;
-    font-size: 13px;
+  color: gray;
+  font-family: Roboto, monospace;
+  font-size: 13px;
+  width: 100%;
+}
+
+input {
+  width: 100%;
 }
 
 span {
-    color: red;
+  color: red;
 }

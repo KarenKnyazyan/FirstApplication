@@ -1,59 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {SECTORS} from "../../assets/mock-data";
 import {TableData} from "../../models/table-data.model";
 import {ProjectSectorModel} from "../../models/project-sector.model";
-import {FormGroup, ValidationErrors} from "@angular/forms";
 
 @Component({
   selector: 'app-sector-form',
   templateUrl: './sector-form.component.html',
   styleUrls: ['./sector-form.component.css']
 })
-export class SectorFormComponent implements OnInit {
+export class SectorFormComponent {
 
-  sectorsData = SECTORS;
-  sectorTable: TableData<ProjectSectorModel> = new TableData<ProjectSectorModel>();
-  sectorPercentData = {currentSector: '', currentPercent: 0}
-  sectorsOrder = 1;
+  public sectorsData = SECTORS;
+  public sectorTable: TableData<ProjectSectorModel> = new TableData<ProjectSectorModel>();
+  public sectorPercentData = {currentSector: '', currentPercent: 0}
+  public sectorsOrder = 1;
 
-  percentIsValid = false;
+  public percentIsValid = false;
+  public sectorIsValid = false;
 
   constructor() { }
 
-  sectorForm: FormGroup = new FormGroup({});
-
-  ngOnInit(): void {
-  }
-
   public addSectorsTableRow(): void {
-
     this.sectorTable.add({
       projectSector: this.sectorPercentData.currentSector,
       percent: this.sectorPercentData.currentPercent,
       id: this.sectorsOrder++
-    }, this.sectorForm.value['percent']);
-
-    this.sectorForm.patchValue({
-      ['sector']: '-Select-',
-      ['percent']: '',
-    })
-
+    }, this.sectorPercentData.currentPercent);
   }
 
-  public sectorValidation(event?: string): boolean {
-    return this.sectorTable.getData().length === 0 ? false : this.sectorTable.getData().some(x => x.projectSector === '')
-  }
-
-  public getChildData(event: [number, boolean]) {
+  public getPercentValue(event: [number, boolean]) : void {
     this.sectorPercentData.currentPercent = event[0];
     this.percentIsValid = event[1];
   }
 
-  public percentValidation(formGroup: FormGroup): boolean | ValidationErrors {
-    // if (formGroup === this.locationForm) {
-    //   return formGroup.get('percent')!.errors || (formGroup.get('percent')!.value + this.locationTable.getPercentSum() > 100);
-    // }
-    return  this.sectorTable.getPercentSum() > 100;
+  public getSectorValue(event: [string, boolean]) : void {
+    this.sectorPercentData.currentSector = event[0];
+    this.sectorIsValid = event[1];
   }
-
 }

@@ -7,8 +7,12 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 })
 export class DatePickerComponent {
 
+  @Input() public value?: string | null;
   @Input() public label = '';
-  // @Input() public changeFN: void
+
+  @Input() public errorMessage = '';
+  @Input() public displayError = false;
+  @Input() public isSelected = true;
 
   @Output() public selectedDate = new EventEmitter<string>();
 

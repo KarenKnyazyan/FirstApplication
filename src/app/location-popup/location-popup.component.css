@@ -5,7 +5,6 @@ span {
 .location-popup-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 30px;
 }
 
 .location-popup-header button {
@@ -15,10 +14,17 @@ span {
     cursor: pointer;
 }
 
+.location-popup-body {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 70%;
+  justify-content: space-between;
+}
+
 .location-popup {
     width: 350px;
     height: 500px;
-    padding: 25px;
+    padding: 20px;
     background-color: white;
     position: absolute;
     top: 50%;
@@ -30,40 +36,20 @@ span {
     border-radius: 3px;
 }
 
-.location-popup form {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.location-popup select {
+.location-popup-body app-combo-box {
     width: 100%;
-    height: 35px;
+    /*height: 35px;*/
     font-family: Roboto, monospace;
     margin-top: 10px;
 }
 
-.location-popup label {
-    font-family: Roboto, monospace;
-    font-weight: lighter;
-    color: gray;
-}
-
-.location-popup input {
-    width: 85px;
+.location-popup-body app-number-input {
+    width: 100%;
     height: 35px;
     font-family: Roboto, monospace;
 }
 
-.location-popup__input {
-    display: flex;
-    align-items: flex-end;
-    font-family: Roboto, monospace;
-    justify-content: space-between;
-}
-
-.locationPercent-error {
+app-error {
     height: 35px;
     text-align: center;
     width: auto;

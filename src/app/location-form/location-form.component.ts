@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {TableData} from "../../models/table-data.model";
 import {ProjectLocationModel} from "../../models/project-location.model";
 
@@ -7,14 +7,22 @@ import {ProjectLocationModel} from "../../models/project-location.model";
   templateUrl: './location-form.component.html',
   styleUrls: ['./location-form.component.css']
 })
-export class LocationFormComponent implements OnInit {
+export class LocationFormComponent{
 
-  locationTable: TableData<ProjectLocationModel> = new TableData<ProjectLocationModel>()
+  public locationTable: TableData<ProjectLocationModel> = new TableData<ProjectLocationModel>()
+  public displayProjectLocationsPopup: Boolean = false;
 
-  displayProjectLocationsPopup: Boolean = false;
-
+  private countyOrder = 1;
+  private districtOrder = 1;
   constructor() { }
 
-  ngOnInit(): void {
+  public addLocationTableRow(event: {county: string, district: string, percent: number}): void {
+    this.locationTable.add({
+      county: event.county,
+      district: event.district,
+      percent: event.percent,
+      countyOrder: this.countyOrder++,
+      districtOrder: this.districtOrder++
+    }, event.percent)
   }
 }

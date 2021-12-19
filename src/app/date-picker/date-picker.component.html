@@ -1,3 +1,6 @@
-<label for="date-picker"> {{label}} <span>*</span> <br>
-    <input #input id="date-picker" type="date" (change)="getDate(input.value)">
-</label>
+<div>
+  <label for="date-picker"> {{label}} <span *ngIf="!isSelected">*</span> <br>
+    <input #input id="date-picker" type="date" (change)="getDate(input.value)" [ngModel]="value">
+  </label>
+  <app-error [errorMessage]="errorMessage" *ngIf="displayError"></app-error>
+</div>

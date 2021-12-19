@@ -9,5 +9,5 @@
 </div>
 
 <app-location-popup *ngIf="displayProjectLocationsPopup && locationTable.getPercentSum() !== 100"
-                    (closePopup)="displayProjectLocationsPopup = $event">
+                    (closePopup)="displayProjectLocationsPopup = $event" (nextTableRow)="addLocationTableRow($event)">
 </app-location-popup>

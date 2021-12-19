@@ -1,8 +1,6 @@
-import {SelectModel} from "./select.model";
-
 export interface ProjectLocationModel {
-  county: SelectModel,
-  district: SelectModel[],
+  county: string,
+  district: string,
   percent: number,
   countyOrder?: number
   districtOrder?: number

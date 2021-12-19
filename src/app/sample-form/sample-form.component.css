@@ -21,7 +21,7 @@
 }
 
 .sample-form__bottom app-combo-box {
-    flex-basis: 30%;
+    flex-basis: 25%;
 }
 
 .sample-form__bottom app-duration {

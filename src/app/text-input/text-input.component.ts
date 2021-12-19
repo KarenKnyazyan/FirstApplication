@@ -1,18 +1,14 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-text-input',
   templateUrl: './text-input.component.html',
   styleUrls: ['./text-input.component.css']
 })
-export class TextInputComponent implements OnInit {
+export class TextInputComponent {
 
-  @Input() public label = ''
-  @Input() public displayDescription = false
+  @Input() public label = '';
+  @Input() public displayDescription = false;
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }

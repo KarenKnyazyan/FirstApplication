@@ -1,5 +1,5 @@
-<label for="combo-box" *ngIf="label"> {{label}} <span>*</span></label>
+<label for="combo-box" *ngIf="label"> {{label}} <span *ngIf="isValidDropdown">*</span></label>
 <select #comboBox id="combo-box" (change)="dropdownValidation(comboBox.value)" required>
     <option *ngFor="let d of dropdownData" [value]="d.value" [hidden]="d.id === 1">{{d.value}}</option>
 </select>
-<app-error [errorMessage]="errorMessage" *ngIf="isValidSector"></app-error>
+<app-error [errorMessage]="errorMessage" *ngIf="!isValidDropdown"></app-error>

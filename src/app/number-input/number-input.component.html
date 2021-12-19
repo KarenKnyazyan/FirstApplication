@@ -1,17 +1,19 @@
 <label for="number-input" *ngIf="!withLabel && !withoutLabel"> {{label}} <br>
-    <input #input [(ngModel)]="percent" id="number-input" type="number" (change)="percentValidation(input.value)">
+  <input [(ngModel)]="value" id="number-input" type="number"> <ng-content></ng-content>
 </label>
 
 <div class="withLabel" *ngIf="withLabel">
-    <label for="number-input__withLabel"> {{label}} <br>
-        <input #input [(ngModel)]="percent" id="number-input__withLabel" type="number" (change)="percentValidation(input.value)">
-    </label>
+  <label for="number-input__withLabel"> {{label}} <br>
+    <input #input [(ngModel)]="value" id="number-input__withLabel" type="number"
+           (change)="percentValidation(input.value)">
+  </label>
 
-    <app-error [errorMessage]="errorMessage" *ngIf="isInvalidPercent"></app-error>
+  <app-error [errorMessage]="errorMessage" *ngIf="!isValidPercent" [customError]="withCustomError"></app-error>
 </div>
 
 <div class="withoutLabel" *ngIf="withoutLabel">
-    <input #input [(ngModel)]="percent" id="number-input__withoutLabel" type="number" (change)="percentValidation(input.value)">
+  <input #input [(ngModel)]="value" id="number-input__withoutLabel" type="number"
+         (change)="percentValidation(input.value)">
 
-    <app-error [errorMessage]="errorMessage" *ngIf="isInvalidPercent"></app-error>
+  <app-error [errorMessage]="errorMessage" *ngIf="!isValidPercent" [customError]="withCustomError"></app-error>
 </div>

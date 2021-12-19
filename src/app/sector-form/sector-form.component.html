@@ -8,16 +8,16 @@
 
             <app-combo-box [dropdownData]="sectorsData" [tableData]="sectorTable"
                            [errorMessage]="'Sector already selected. Please select another sector'"
-                           (selectedValue)="sectorPercentData.currentSector = $event[0]" >
+                           (selectedValue)="getSectorValue($event)" >
             </app-combo-box>
 
             <app-number-input [errorMessage]="'Invalid percentage'" [tableData]="sectorTable" [withoutLabel]="true"
-                              (percent)=" getChildData($event)">
+                              (percent)=" getPercentValue($event)">
 
             </app-number-input>
 
             <button class="add-button" (click)="addSectorsTableRow()"
-                    [disabled]=" sectorValidation() || percentIsValid">
+                    [disabled]="!percentIsValid || !sectorIsValid">
                 ADD
             </button>
         </div>
