@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {STATUSES} from "../../assets/mock-data";
 
 @Component({
@@ -6,13 +6,9 @@ import {STATUSES} from "../../assets/mock-data";
   templateUrl: './sample-form.component.html',
   styleUrls: ['./sample-form.component.css']
 })
-export class SampleFormComponent implements OnInit {
+export class SampleFormComponent {
 
-  implementationStatuses = STATUSES;
-
+  public implementationStatuses = STATUSES;
+  public comboBoxDefaultValue = 1;
   constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }

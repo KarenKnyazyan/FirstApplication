@@ -24,7 +24,7 @@ export class DurationComponent {
     this.startDate = new Date(event);
     this.startDateIsValid = true;
     if (this.endDate !== null) {
-      if (this.sampleService.checkDates(this.startDate, this.endDate)) {
+      if (this.sampleService.checkStartIsBeforeEnd(this.startDate, this.endDate)) {
         this.setDuration();
         this.displayStartDateError = false;
         this.displayEndDateError = false;
@@ -38,7 +38,7 @@ export class DurationComponent {
   public setEndDate(event: string): void {
     this.endDate = new Date(event);
     if (this.startDate !== null) {
-      if (this.sampleService.checkDates(this.startDate!, this.endDate)) {
+      if (this.sampleService.checkStartIsBeforeEnd(this.startDate!, this.endDate)) {
         this.setDuration();
         this.displayStartDateError = false;
         this.displayEndDateError = false;
@@ -51,6 +51,6 @@ export class DurationComponent {
   }
 
   public setDuration(): void {
-    this.duration = this.sampleService.setDuration(this.startDate!, this.endDate!);
+    this.duration = this.sampleService.getDurationInDays(this.startDate!, this.endDate!);
   }
 }

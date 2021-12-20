@@ -9,17 +9,17 @@
 
   <div class="location-popup-body">
     <app-combo-box [label]="'County'" [dropdownData]="counties"
-                   (selectedValue)="filterDistricts($event[0])"></app-combo-box>
+                   (selectedValueChange)="filterDistricts($event[0])"></app-combo-box>
 
     <app-combo-box [label]="'Districts'" [dropdownData]="districts"
-                   (selectedValue)="setDistrict($event)"></app-combo-box>
+                   (selectedValueChange)="setDistrict($event)"></app-combo-box>
 
     <app-error errorMessage="County and District selected. Please select another District"
                *ngIf="isValidCountyAndDistrict"></app-error>
 
 
     <app-number-input [withLabel]="true" [label]="'%'" [errorMessage]="'Invalid percentage'"
-                      (percent)="setPercent($event)" [withCustomError]="true"></app-number-input>
+                      (inputValueChange)="setPercent($event)" [withCustomError]="true"></app-number-input>
 
 
   </div>

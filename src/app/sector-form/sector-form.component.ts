@@ -14,7 +14,7 @@ export class SectorFormComponent {
   public sectorTable: TableData<ProjectSectorModel> = new TableData<ProjectSectorModel>();
   public sectorPercentData = {currentSector: '', currentPercent: 0}
   public rowId = 1;
-
+  public comboBoxDefaultValue = 1;
   public percentIsValid = false;
   public sectorIsValid = false;
 
@@ -26,6 +26,8 @@ export class SectorFormComponent {
       percent: this.sectorPercentData.currentPercent,
       id: this.rowId++
     }, this.sectorPercentData.currentPercent);
+
+
   }
 
   public getPercentValue(event: [number, boolean]) : void {

@@ -6,13 +6,13 @@
 
     <div class="sectors-form">
 
-      <app-combo-box [dropdownData]="sectorsData" [tableData]="sectorTable"
+      <app-combo-box [dropdownData]="sectorsData" [tableData]="sectorTable" [selectedValue]="comboBoxDefaultValue"
                      [errorMessage]="'Sector already selected. Please select another sector'"
-                     (selectedValue)="getSectorValue($event)">
+                     (selectedValueChange)="getSectorValue($event)">
       </app-combo-box>
 
       <app-number-input [errorMessage]="'Invalid percentage'" [tableData]="sectorTable" [withoutLabel]="true"
-                        (percent)=" getPercentValue($event)">
+                        (inputValueChange)=" getPercentValue($event)">
 
       </app-number-input>
 

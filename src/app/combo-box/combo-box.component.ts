@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {TableData} from "../../models/table-data.model";
 import {DropdownValidationService} from "../../shared/services/dropdown-validation.service";
+import {SelectModel} from "../../models/select.model";
 
 @Component({
   selector: 'app-combo-box',
@@ -9,22 +10,24 @@ import {DropdownValidationService} from "../../shared/services/dropdown-validati
 })
 export class ComboBoxComponent {
 
-  @Input() public dropdownData: { id: number, value: string, parent?: string }[] = [{id: 1, value: "-Select-"}];
+  @Input() public dropdownData: SelectModel[] = [{id: 1, value: "-Select-"}];
   @Input() public tableData: TableData<any> = new TableData<any>();
   @Input() public label = '';
   @Input() public errorMessage = '';
+  @Input() public selectedValue?: number;
+  @Output() selectedValueChange = new EventEmitter<[string, boolean]>();
 
-  @Output() selectedValue = new EventEmitter<[string, boolean]>();
-
-  constructor(private validator: DropdownValidationService) { }
+  constructor(private validator: DropdownValidationService) {
+    console.log(this.selectedValue)
+  }
 
   public isValidDropdown = true;
   public dropdownValidation(value: string): void {
     this.isValidDropdown = this.validator.dropdownValidation(value, this.tableData);
     if (this.isValidDropdown) {
-      this.selectedValue.emit([value, this.isValidDropdown]);
+      this.selectedValueChange.emit([value, this.isValidDropdown]);
     } else {
-      this.selectedValue.emit(['', this.isValidDropdown]);
+      this.selectedValueChange.emit(['', this.isValidDropdown]);
     }
   }
 }

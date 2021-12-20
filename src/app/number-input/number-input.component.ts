@@ -12,25 +12,26 @@ export class NumberInputComponent {
   @Input() public label = '';
   @Input() public errorMessage = '';
   @Input() public tableData: TableData<any> = new TableData<any>()
-
+  @Input() public min?: number;
+  @Input() public max?: number;
   @Input() public withLabel = false;
   @Input() public withoutLabel = false;
   @Input() public withCustomError = false;
 
-  @Output() percent = new EventEmitter<[number, boolean]>()
+  @Output() inputValueChange = new EventEmitter<[number, boolean]>()
 
   constructor() { }
 
   public percentValue?: number;
   isValidPercent = true
-  public percentValidation(value: string) {
+  public inputValidation(value: string) {
     this.percentValue = Number(value);
     this.isValidPercent = !((this.percentValue > 100 || this.percentValue <= 0) ||
       (this.tableData.getPercentSum() + this.percentValue) > 100 || (this.tableData.getPercentSum() + this.percentValue) <= 0);
     if (this.isValidPercent) {
-      this.percent.emit([this.percentValue, this.isValidPercent]);
+      this.inputValueChange.emit([this.percentValue, this.isValidPercent]);
     } else {
-      this.percent.emit([0, this.isValidPercent]);
+      this.inputValueChange.emit([0, this.isValidPercent]);
     }
   }
 }

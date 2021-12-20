@@ -5,7 +5,7 @@
 <div class="withLabel" *ngIf="withLabel">
   <label for="number-input__withLabel"> {{label}} <br>
     <input #input [(ngModel)]="value" id="number-input__withLabel" type="number"
-           (change)="percentValidation(input.value)">
+           (change)="inputValidation(input.value)">
   </label>
 
   <app-error [errorMessage]="errorMessage" *ngIf="!isValidPercent" [customError]="withCustomError"></app-error>
@@ -13,7 +13,7 @@
 
 <div class="withoutLabel" *ngIf="withoutLabel">
   <input #input [(ngModel)]="value" id="number-input__withoutLabel" type="number"
-         (change)="percentValidation(input.value)">
+         (change)="inputValidation(input.value)">
 
   <app-error [errorMessage]="errorMessage" *ngIf="!isValidPercent" [customError]="withCustomError"></app-error>
 </div>

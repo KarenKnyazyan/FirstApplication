@@ -1,15 +1,16 @@
 <h3>SAMPLE</h3>
 
 <div class="sample-form__project-code-title">
-    <app-text-input [label]="'Project Code'" [displayDescription]="false"></app-text-input>
+  <app-text-input [label]="'Project Code'" [displayDescription]="false"></app-text-input>
 
-    <app-text-input [label]="'Project Code'" [displayDescription]="false"></app-text-input>
+  <app-text-input [label]="'Project Code'" [displayDescription]="false"></app-text-input>
 </div>
 
 <app-text-input [label]="'Description'" [displayDescription]="true"></app-text-input>
 
 <div class="sample-form__bottom">
-    <app-combo-box [label]="'Implementation Status'" [dropdownData]="implementationStatuses" ></app-combo-box>
+  <app-combo-box [label]="'Implementation Status'" [dropdownData]="implementationStatuses"
+                 [selectedValue]="comboBoxDefaultValue"></app-combo-box>
 
-    <app-duration></app-duration>
+  <app-duration></app-duration>
 </div>
